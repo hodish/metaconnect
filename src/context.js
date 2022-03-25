@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { ethers } from "ethers";
 
@@ -21,7 +21,11 @@ const AppProvider = ({ children }) => {
       });
   };
 
-  window.ethereum.on("accountsChanged", accountChangeHandler);
+  useEffect(() => {
+    try {
+      window.ethereum.on("accountsChanged", accountChangeHandler);
+    } catch {}
+  }, []);
 
   const connectWalletHandler = () => {
     if (window.ethereum) {
